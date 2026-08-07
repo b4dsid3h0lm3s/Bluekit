@@ -1,4 +1,4 @@
-obj-m = test.o
+obj-m += test.o
 
 all:
 	make -C make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
