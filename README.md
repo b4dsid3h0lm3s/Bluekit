@@ -68,7 +68,7 @@ sudo apt install build-essential linux-headers-\$(uname -r)
 
 1. **リポジトリのクローン**
    ```bash
-   git clone https://github.com
+   git clone https://github.com/b4dsid3h0lm3s/Bluekit-Your-Ring0-Secure-Check-Rootkit.git
    cd Bluekit
    ```
 
