@@ -48,9 +48,6 @@ static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,
         }
     }
 
-    /* ⚠️ 無限ループ回避のトリック */
-    // 本物の関数の先頭5バイトをスキップしたアドレスへ、CPUの実行位置（ip）を書き換える
-    regs->ip = orig_mkdir_addr + MCOUNT_INSN_SIZE;
 }
 
 /* カーネル内の関数名からアドレスを検索する関数（kprobeを利用） */
