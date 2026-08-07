@@ -4,6 +4,11 @@
 # include <linux/module.h>   /* Needed by all modules */
 # include <linux/kernel.h>   /* Needed for KERN_INFO */
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Your Name");
+MODULE_DESCRIPTION("This is a simple hello world kernel module."); // 💡ここに記述
+MODULE_VERSION("1.0");
+
 int init_module(void)
 {
     printk(KERN_INFO "Hello world 1.\n");
@@ -18,3 +23,5 @@ void cleanup_module(void)
 {
     printk(KERN_INFO "Goodbye world 1.\n");
 }
+
+
