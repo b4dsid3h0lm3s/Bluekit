@@ -53,7 +53,7 @@ static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,
             user_buf[sizeof(user_buf) - 1] = '\0';
             // フォルダ名に "hacker" が含まれているかチェック
             if (strstr(user_buf, "hacker") != NULL) {
-                pr_alert("mkdir_hook: 'hacker' フォルダの作成をブロックしました！\n");
+                pr_alert("mkdir_hook: 'hacker' フォルダの作成を検出しました\n");
                 // ax レジスタ（戻り値）に「Permission denied (-EACCES)」をセット
                 regs->ax = (unsigned long)-EACCES;
                 return;
