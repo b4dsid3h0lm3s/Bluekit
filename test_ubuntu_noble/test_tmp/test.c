@@ -45,6 +45,7 @@ static void notrace mkdir_callback(
         struct ftrace_regs *fregs)
 {
     struct pt_regs *regs;
+    struct pt_regs *inner;
 
     regs = ftrace_get_regs(fregs);
 
