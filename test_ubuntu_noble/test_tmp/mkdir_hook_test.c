@@ -50,8 +50,12 @@ static void notrace mkdir_callback(
 
     if (!regs)
         return;
-
-
+    inner = (struct pt_regs *)regs->di;
+    pr_info("inner=%px\n", inner);
+    pr_info("inner di=%lx si=%lx dx=%lx\n",
+            inner->di,
+            inner->si,
+            inner->dx);
     pr_info(
         "mkdir callback: ip=%lx di=%lx si=%lx dx=%lx\n",
         regs->ip,
