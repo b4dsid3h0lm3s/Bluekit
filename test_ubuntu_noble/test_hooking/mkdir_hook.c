@@ -37,7 +37,11 @@ static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,
 #endif
     char user_buf[256] = {0};
     // x86_64のシステムコール第1引数は di レジスタに入る
-    char __user *pathname = (char __user *)regs->di;
+    struct pt_regs *sys_regs;
+    char __user *pathname;
+
+    sys_regs = (struct pt_regs *)regs->di;
+    pathname = (char __user *)sys_regs->di;
     pr_info("ip=%lx di=%lx si=%lx\n",
         regs->ip,
         regs->di,
