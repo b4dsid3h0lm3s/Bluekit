@@ -24,8 +24,12 @@ static struct ftrace_ops hook_ops;
 static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,struct ftrace_ops *ops, struct ftrace_regs *fregs)
 {
     pr_info("mkdir_hook: callback ip=%lx\n", ip);
+    pr_err();
     // カーネル5.7以降は ftrace_regs から pt_regs を取得
+    //
     struct pt_regs *regs = ftrace_get_regs(fregs);
+    if (!regs)
+        return;
 #else
 static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,
                                struct ftrace_ops *ops, struct pt_regs *regs)
@@ -34,10 +38,15 @@ static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,
     char user_buf[256] = {0};
     // x86_64のシステムコール第1引数は di レジスタに入る
     char __user *pathname = (char __user *)regs->di;
+    pr_info("ip=%lx di=%lx si=%lx\n",
+        regs->ip,
+        regs->di,
+        regs->si);
 
     if (pathname) {
         // ユーザー空間から安全に文字列をコピー
         if (copy_from_user(user_buf, pathname, sizeof(user_buf) - 1) == 0) {
+            user_buf[sizeof(user_buf) - 1] = '\0';
             // フォルダ名に "hacker" が含まれているかチェック
             if (strstr(user_buf, "hacker") != NULL) {
                 pr_alert("mkdir_hook: 'hacker' フォルダの作成をブロックしました！\n");
