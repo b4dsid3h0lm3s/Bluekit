@@ -6,7 +6,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Your Name");
-MODULE_DESCRIPTION("This is a simple hello world kernel module."); // 💡ここに記述
+MODULE_DESCRIPTION("This is a simple hello world kernel module."); 
 MODULE_VERSION("1.0");
 
 int init_module(void)
