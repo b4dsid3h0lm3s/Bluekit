@@ -24,7 +24,6 @@ static struct ftrace_ops hook_ops;
 static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,struct ftrace_ops *ops, struct ftrace_regs *fregs)
 {
     pr_info("mkdir_hook: callback ip=%lx\n", ip);
-    pr_err();
     // カーネル5.7以降は ftrace_regs から pt_regs を取得
     //
     struct pt_regs *regs = ftrace_get_regs(fregs);
