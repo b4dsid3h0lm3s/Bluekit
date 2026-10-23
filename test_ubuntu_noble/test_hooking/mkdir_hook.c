@@ -19,7 +19,7 @@ MODULE_VERSION("1.0");
 static unsigned long orig_mkdir_addr;
 static struct ftrace_ops hook_ops;
 
-/* 💡 偽の mkdir 関数 */
+
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 7, 0)
 static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,struct ftrace_ops *ops, struct ftrace_regs *fregs)
 {
@@ -36,7 +36,7 @@ static void notrace hook_mkdir(unsigned long ip, unsigned long parent_ip,
 {
 #endif
     char user_buf[256] = {0};
-    // x86_64のシステムコール第1引数は di レジスタに入る
+   
     struct pt_regs *sys_regs;
     char __user *pathname;
 
@@ -75,12 +75,12 @@ static unsigned long lookup_name(const char *name)
     return addr;
 }
 
-/* モジュールがロードされたときの処理 */
+
 static int __init fh_init(void)
 {
     int err;
 
-    // 1. 本物の __x64_sys_mkdir のアドレスを探す
+    // 1. __x64_sys_mkdir のアドレスを探す
     orig_mkdir_addr = lookup_name(TARGET_FUNC);
     if (!orig_mkdir_addr) {
         pr_err("mkdir_hook: アドレスの取得に失敗しました\n");
